@@ -1,23 +1,23 @@
 === Add Link to Copied Text ===
-Contributors: amitaits, kka284556
+Contributors: kka284556, amitaits 
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=amitsonkhiya%40hotmail%2ecom&lc=US&item_name=Fellow%20Tuts%20%2d%20Plugin%20Development%20Support&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
-Tags: copied, copy, copyright, protect, stop, content, website, link, add, user, users, visitor, visitors, text, plugin, wordpress
+Tags: copied, copy, copyright, content, website, link, add link, append link, add text to copy and paste,copy & paste, text, plugin, wordpress
 Requires at least: 3.4
 Tested up to: 3.9
 Stable tag: 1.0
 License: GPLv2 or later
 
-This plugin automatically add a link to your website/page beneath copied text from your website to the page wherever visitors paste. This powerful plugin can also protect visitors to copy your content and works on almost all browsers
+Add a link to the page automatically when users copy & paste a text from the website to the page wherever visitors paste or stop users from copying your content.
 
 == Description ==
 
-Add Link to Copied Text plugin is capable to add a link to your website/page along with your desirous setting whenever a visitor copy content from your website. Alternatively you can also stop visitor to copy your content or replace copied text with your custom text.
+Add Link to Copied Text plugin is capable to add a link to the page along with your desirous setting whenever a user copy content from the website. Alternatively you can also stop visitor to copy your content or replace copied text with your custom text.
 
 You can visit our <a href="http://dev.fellowtuts.com/add-link-to-copied-text-plugin/">Add Link to Copied Text page</a> to check available options with this powerful plugin.
 
 We have tested this plugin with all major browsers including chrome, firefox, opera, safari and IE version 7 to 11.
 
-<strong>Don't forget to switch to another page before you copy content to see it in action after making any change in this plugin settings</strong>.
+<strong>Don't forget to refresh the page before you copy content to see it in action after making any change in this plugin settings</strong>.
 
 == Installation ==
 
