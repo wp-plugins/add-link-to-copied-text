@@ -7,7 +7,7 @@ Tested up to: 3.9
 Stable tag: 1.0
 License: GPLv2 or later
 
-Add a link to the page automatically when users copy & paste a text from the website to the page wherever visitors paste or stop users from copying your content.
+Add a link to the page automatically when users copy & paste a text from the website or stop users from copying content.
 
 == Description ==
 
