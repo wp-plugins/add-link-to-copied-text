@@ -2,8 +2,8 @@
 /*
 Plugin Name: Add Link to Copied Text
 Plugin URI: http://dev.fellowtuts.com/add-link-to-copied-text-plugin/
-Description: This plugin automatically add a link to your website/page beneath copied text from your website to the page wherever visitors paste. This powerful plugin can also protect visitors to copy your content and works on almost all browsers
-Version: 1.0
+Description: This plugin automatically adds a link to your website/page beneath copied text from your website to the page wherever visitors paste. This powerful plugin can also protect visitors to copy your content and works on almost all browsers
+Version: 1.1
 Author: Amit Sonkhiya, Kamal Agrawal 
 Author URI: http://dev.fellowtuts.com
 License: GPLv2 or later
@@ -20,6 +20,7 @@ class ftAddlink {
 		
 		
 		$this->options = get_option($this->option_name);		
+		
 		
 		add_action( 'admin_menu', array( &$this, 'ftAddlink_menu' ) );
 		add_action( 'admin_init', array( &$this, 'ftAddlink_admininit' ) );
@@ -39,7 +40,8 @@ class ftAddlink {
 		if( !isset($options['usetitle']) ) $options['usetitle'] = false;
 		if( !isset($options['addlinktosite']) ) $options['addlinktosite'] = false;		
 		if( !isset($options['cleartext']) ) $options['cleartext'] =  false;
-		if( !isset($options['addsitename']) ) $options['addsitename'] = true;		
+		if( !isset($options['addsitename']) ) $options['addsitename'] = true;
+		if( !isset($options['usesitenameaslink']) ) $options['usesitenameaslink'] = true;				
 		if( !isset($options['replaced_text']) ) $options['replaced_text'] = '';
 		
 		
@@ -56,15 +58,16 @@ class ftAddlink {
 		
 		$params = 	array(
 			
-			 'readmore'	    	=> $options['readmore'],
-			 'breaks'		    => $options['breaks'],
-			 'addlinktosite'	=> $options["addlinktosite"] ,
-			 'usetitle'			=> $options['usetitle'],			
-			 'cleartext'		=> $options['cleartext'],
-			 'addsitename'		=> $options['addsitename'],			
-			 'replaced_text'	=> $options['replaced_text'],
-			 'sitename'			=> get_bloginfo('name'),
-			 'siteurl'			=> get_bloginfo('url')			 
+			  'readmore'			=> $options['readmore'],
+			 'breaks'		        => $options['breaks'],
+			  'addlinktosite'	    =>  $options["addlinktosite"] ,
+			 'usetitle'			    => $options['usetitle'],			
+			 'cleartext'		    => $options['cleartext'],
+			 'addsitename'		    => $options['addsitename'],			
+			 'replaced_text'	    => $options['replaced_text'],
+			 'sitename'			    => get_bloginfo('name'),
+			 'usesitenameaslink'    => $options['usesitenameaslink'],			
+			 'siteurl'			    => get_bloginfo('url')			 
 		);
 		
 		if ($options['usetitle'] === true) {
@@ -84,6 +87,7 @@ class ftAddlink {
 	// adding menu item in admin menu
 	function ftAddlink_menu(){
 		
+		//add_options_page('Todo Options', 'Todo Options', 'manage_options', 'todo_list_options', array($this, 'options_do_page'));
 		add_options_page('Add link Settings', 'Add Link', 'manage_options', 'ftAddlink_options',array($this, 'ftAddlink_display_settings'));
 		
 	}
@@ -91,9 +95,11 @@ class ftAddlink {
 	//register_setting( $option_group, $option_name, $sanitize_callback );
 	function ftAddlink_admininit()
 	{
-		register_setting($this->option_name, $this->option_name, array($this, 'options_validate'));		
-	}
+		register_setting($this->option_name, $this->option_name, array($this, 'options_validate'));
 		
+	}
+	
+	
 	public function options_validate($input) {
 
     $valid = array();
@@ -104,7 +110,10 @@ class ftAddlink {
 	$valid['addlinktosite'] = isset($input['addlinktosite']) ? (bool) $input['addlinktosite'] : false;
 	$valid['usetitle'] = isset($input['usetitle']) ? (bool) $input['usetitle'] : false;
 	$valid['cleartext'] = isset($input['cleartext']) ? (bool) $input['cleartext'] : false;
-	$valid['addsitename'] = isset($input['addsitename']) ? (bool) $input['addsitename'] : false;
+	
+	$valid['usesitenameaslink'] = isset($input['usesitenameaslink']) && !$valid['addlinktosite'] ? (bool) $input['usesitenameaslink'] : false;	
+	$valid['addsitename'] = isset($input['addsitename']) && !$valid['usesitenameaslink'] ? (bool) $input['addsitename'] : false;
+		
 	$valid['replaced_text'] = $input['replaced_text'];
 	
 
@@ -118,7 +127,8 @@ class ftAddlink {
 
         // Set it to the default value
         $valid['breaks'] = 0;
-    }   
+    }
+   
 
     return $valid;
 }
@@ -126,7 +136,6 @@ class ftAddlink {
 	function ftAddlink_display_settings(){
 		
 		$options = get_option($this->option_name);
-		//default values
 		$readmore = isset($options['readmore'])? $options['readmore'] : 'Continue reading at';
 		$breaks = isset($options['breaks'])  ? $options['breaks'] : 2;
    ?>
@@ -149,16 +158,20 @@ class ftAddlink {
       </tr>
       <tr valign="top">
         <th scope="row">Link to site instead of page/post:</th>
-        <td><input type="checkbox" name="<?php echo $this->option_name?>[addlinktosite]" <?php checked($options['addlinktosite']); ?>  /></td>
+        <td><input type="checkbox" onchange="setSitetileaslink(this)" name="<?php echo $this->option_name?>[addlinktosite]" <?php checked($options['addlinktosite']); ?>  /></td>
       </tr>
        <tr valign="top">
         <th scope="row">Use page/post title as link text:</th>
         <td><input type="checkbox" name="<?php echo $this->option_name?>[usetitle]" <?php checked($options['usetitle']); ?>  /></td>
       </tr>
+      <tr valign="top" <?php if( $options['addlinktosite']) echo 'style="opacity:0.5;"'; ?>>
+        <th scope="row">Add site title as a separate link:</th>
+        <td><input type="checkbox" onchange="setCheck(this)" <?php disabled( $options['addlinktosite']) ?> name="<?php echo $this->option_name?>[usesitenameaslink]" <?php checked($options['usesitenameaslink']); ?>  /></td>
+      </tr>
       
-       <tr valign="top">
+       <tr valign="top" <?php if( $options['usesitenameaslink']) echo 'style="opacity:0.5;"'; ?>>
         <th scope="row">Add site title to link text:</th>
-        <td><input type="checkbox" name="<?php echo $this->option_name?>[addsitename]" <?php checked($options['addsitename']); ?>  /></td>
+        <td><input type="checkbox" name="<?php echo $this->option_name?>[addsitename]" <?php disabled( $options['usesitenameaslink']) ?> <?php checked($options['addsitename']); ?>  /></td>
       </tr>
       
       <tr valign="top">
@@ -168,7 +181,7 @@ class ftAddlink {
       </tr>
       
       <tr valign="top">
-        <th scope="row">OR<br /><br /><span style="color: Red;">Don't let user copy my content:</span></th>
+        <th scope="row">OR<br /><br /><span style="color: Red;">Don't let user copy my content:</span><!--Enable clear copied text(If yes, nothing will be copied)--></th>
         <td><br /><br /><input type="checkbox" name="<?php echo $this->option_name?>[cleartext]" <?php checked($options['cleartext']); ?>  /></td>
       </tr>      
     </table>
@@ -176,6 +189,29 @@ class ftAddlink {
       <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
     </p>
   </form>
+  <script>
+  function setSitetileaslink(obj)
+  {
+	  if(obj.checked)
+		 {  
+		 	jQuery(jQuery(obj).parents('tr')[0]).next().next().css({opacity:'0.5'}).find('input[type=checkbox]').attr({'checked':false,'disabled':true})
+			jQuery(jQuery(obj).parents('tr')[0]).next().next().next().removeAttr('style').find('input[type=checkbox]').removeAttr('disabled')
+		 }
+		else
+		 { jQuery(jQuery(obj).parents('tr')[0]).next().next().removeAttr('style').find('input[type=checkbox]').removeAttr('disabled');
+		 }
+   }
+  	function setCheck(obj)
+	{
+		if(obj.checked)
+		  {
+		    jQuery(jQuery(obj).parents('tr')[0]).next().css({opacity:'0.5'}).find('input[type=checkbox]').attr({'checked':false,'disabled':true})
+		  }
+		else
+		  jQuery(jQuery(obj).parents('tr')[0]).next().removeAttr('style').find('input[type=checkbox]').removeAttr('disabled');
+		  
+	}
+  </script>
 </div>
 <?php
 		
@@ -185,5 +221,3 @@ class ftAddlink {
 $ftAddlink = new ftAddlink();
 
 }// top most if condition ends here
-
-
