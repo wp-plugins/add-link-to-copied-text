@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=amits
 Tags: copied, copy, copyright, content, website, link, add link, append link, add text to copy and paste,copy & paste, text, back link, link back, plugin, wordpress
 Requires at least: 3.4
 Tested up to: 3.9
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 
 Add a link to the page/website when users copy & paste text from your website or stop users from copying content.
@@ -46,7 +46,12 @@ We have tested this plugin with Internet Explorer versions 7, 8, 9, 10, 11 and o
 == Screenshots ==
 1. plugin options
 
+
 == Changelog ==
+
+= 1.2 =
+* Option added to open link in new window/tab
+* Bugfix: Link appears twice when text is copied from home page. Issue fixed
 
 = 1.1 =
 * Added option to let site title to appear as a separate link

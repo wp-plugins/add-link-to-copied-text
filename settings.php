@@ -3,7 +3,7 @@
 Plugin Name: Add Link to Copied Text
 Plugin URI: http://dev.fellowtuts.com/add-link-to-copied-text-plugin/
 Description: This plugin automatically adds a link to your website/page beneath copied text from your website to the page wherever visitors paste. This powerful plugin can also protect visitors to copy your content and works on almost all browsers
-Version: 1.1
+Version: 1.2
 Author: Amit Sonkhiya, Kamal Agrawal 
 Author URI: http://dev.fellowtuts.com
 License: GPLv2 or later
@@ -43,6 +43,8 @@ class ftAddlink {
 		if( !isset($options['addsitename']) ) $options['addsitename'] = true;
 		if( !isset($options['usesitenameaslink']) ) $options['usesitenameaslink'] = true;				
 		if( !isset($options['replaced_text']) ) $options['replaced_text'] = '';
+		if( !isset($options['target']) ) $options['target'] = false;
+		
 		
 		
 	}
@@ -58,16 +60,18 @@ class ftAddlink {
 		
 		$params = 	array(
 			
-			  'readmore'			=> $options['readmore'],
+			 'readmore'		    	=> $options['readmore'],
 			 'breaks'		        => $options['breaks'],
-			  'addlinktosite'	    =>  $options["addlinktosite"] ,
+			 'addlinktosite'	    =>  $options["addlinktosite"] ,
 			 'usetitle'			    => $options['usetitle'],			
 			 'cleartext'		    => $options['cleartext'],
 			 'addsitename'		    => $options['addsitename'],			
 			 'replaced_text'	    => $options['replaced_text'],
 			 'sitename'			    => get_bloginfo('name'),
 			 'usesitenameaslink'    => $options['usesitenameaslink'],			
-			 'siteurl'			    => get_bloginfo('url')			 
+			 'siteurl'			    => get_bloginfo('url')	,
+			 'target'			    => $options['target'],		
+			 'frontpage'			=> false
 		);
 		
 		if ($options['usetitle'] === true) {
@@ -75,6 +79,7 @@ class ftAddlink {
 			if (is_home() || is_front_page()){
 				
 				$params['pagetitle'] = get_bloginfo('name');
+				$params['frontpage'] = true;
 				$params['addsitename'] = false;
 			}
 			if (is_singular()){
@@ -115,6 +120,7 @@ class ftAddlink {
 	$valid['addsitename'] = isset($input['addsitename']) && !$valid['usesitenameaslink'] ? (bool) $input['addsitename'] : false;
 		
 	$valid['replaced_text'] = $input['replaced_text'];
+	$valid['target'] = isset($input['target']) ? (bool) $input['target'] : false;
 	
 
     if (strlen($valid['breaks']) == 0 || $valid['breaks'] < 0) {
@@ -155,6 +161,10 @@ class ftAddlink {
       <tr valign="top">
         <th scope="row">Number of &lt;br /&gt; tags to insert before the link:<!-- <br /><small>(default: 2)</small> --></th>
         <td><input type="text" name="<?php echo $this->option_name?>[breaks]" value="<?php echo $breaks; ?>" /></td>
+      </tr>
+      <tr valign="top">
+        <th scope="row">Open link in new window/tab:</th>
+        <td><input type="checkbox"  name="<?php echo $this->option_name?>[target]" <?php checked($options['target']); ?>  /></td>
       </tr>
       <tr valign="top">
         <th scope="row">Link to site instead of page/post:</th>
