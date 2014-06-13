@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=amits
 Tags: copied, copy, copyright, content, website, link, add link, append link, add text to copy and paste,copy & paste, text, back link, link back, plugin, wordpress
 Requires at least: 3.4
 Tested up to: 3.9
-Stable tag: 1.2
+Stable tag: 1.3
 License: GPLv2 or later
 
 Add a link to the page/website when users copy & paste text from your website or stop users from copying content.
@@ -16,6 +16,13 @@ Add Link to Copied Text plugin is capable to add a link to the page along with y
 You can visit our <a href="http://dev.fellowtuts.com/add-link-to-copied-text-plugin/">Add Link to Copied Text page</a> to check available options with this powerful plugin.
 
 We have tested this plugin with all major browsers including chrome, firefox, opera, safari and IE version 7 to 11.
+
+The plugin is available in the following languages:
+
+* English
+* Spanish
+
+If you have a translation please send it us and we would be glad to include it for everyone to use!
 
 <strong>Don't forget to refresh the page before you copy content to see it in action after making any change in this plugin settings</strong>.
 
@@ -48,6 +55,9 @@ We have tested this plugin with Internet Explorer versions 7, 8, 9, 10, 11 and o
 
 
 == Changelog ==
+
+= 1.3 =
+* Added language: Spanish
 
 = 1.2 =
 * Option added to open link in new window/tab

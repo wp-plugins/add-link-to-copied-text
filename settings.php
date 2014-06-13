@@ -3,10 +3,12 @@
 Plugin Name: Add Link to Copied Text
 Plugin URI: http://dev.fellowtuts.com/add-link-to-copied-text-plugin/
 Description: This plugin automatically adds a link to your website/page beneath copied text from your website to the page wherever visitors paste. This powerful plugin can also protect visitors to copy your content and works on almost all browsers
-Version: 1.2
+Version: 1.3
 Author: Amit Sonkhiya, Kamal Agrawal 
 Author URI: http://dev.fellowtuts.com
 License: GPLv2 or later
+Text Domain: ftAddlink
+Domain Path: /languages/
 */
 
 if ( ! class_exists( 'ftAddlink' ) ){
@@ -27,15 +29,21 @@ class ftAddlink {
 		
 		add_action( 'init', array( &$this, 'ftAddlink_init') );
 		add_action( 'wp_head', array( &$this, 'add_script' ) );
+		
+		add_action('plugins_loaded', array(&$this, 'load_lang'));
+
+  
 	}
 	
-	
+	function load_lang(){
+        load_plugin_textdomain( 'ftAddlink', false, basename( dirname( __FILE__ ) )  . '/languages/' );
+    }
 	
 	function ftAddlink_init(){
 		
 		$options = $this->options ; 
 		
-		if( !isset($options['readmore']) ) $options['readmore'] = 'Continue reading at:';
+		if( !isset($options['readmore']) ) $options['readmore'] = _e('Continue reading at','ftAddlink');
 		if( !isset($options['breaks']) ) $options['breaks'] = 2;
 		if( !isset($options['usetitle']) ) $options['usetitle'] = false;
 		if( !isset($options['addlinktosite']) ) $options['addlinktosite'] = false;		
@@ -93,7 +101,7 @@ class ftAddlink {
 	function ftAddlink_menu(){
 		
 		//add_options_page('Todo Options', 'Todo Options', 'manage_options', 'todo_list_options', array($this, 'options_do_page'));
-		add_options_page('Add link Settings', 'Add Link', 'manage_options', 'ftAddlink_options',array($this, 'ftAddlink_display_settings'));
+		add_options_page(__('Add link Settings','ftAddlink'), __('Add Link','ftAddlink'), 'manage_options', 'ftAddlink_options',array($this, 'ftAddlink_display_settings'));
 		
 	}
 	
@@ -127,7 +135,7 @@ class ftAddlink {
         add_settings_error(
                 'breaks',                     // Setting title
                 'breaks_texterror',            // Error ID
-                'Please enter a valid integer number',     // Error message
+               __('Please enter a valid integer number','ftAddlink'),     // Error message
                 'error'                         // Type of message
         );
 
@@ -142,61 +150,61 @@ class ftAddlink {
 	function ftAddlink_display_settings(){
 		
 		$options = get_option($this->option_name);
-		$readmore = isset($options['readmore'])? $options['readmore'] : 'Continue reading at';
+		$readmore = isset($options['readmore'])? $options['readmore']: _e('Continue reading at','ftAddlink');
 		$breaks = isset($options['breaks'])  ? $options['breaks'] : 2;
    ?>
 <style>
 .form-table th {width:40%}
 </style>
 <div class="wrap">
-  <h2>Add Link On Copy Options</h2>
+  <h2><?php _e('Add Link On Copy Options','ftAddlink'); ?></h2>
   <form method="post" action="options.php">
     <?php settings_fields($this->option_name); ?>
     <table class="form-table">
       <tr valign="top">
-        <th scope="row">Label to append: <!--<br /><small>(eg: "Continue reading at")</small>--></th>
+        <th scope="row"><?php _e('Label to append','ftAddlink'); ?>: <!--<br /><small>(eg: "Continue reading at")</small>--></th>
         <td>
         <input type="text" name="<?php echo $this->option_name ?>[readmore]" value="<?php echo $readmore; ?>" /></td>
       </tr>
       <tr valign="top">
-        <th scope="row">Number of &lt;br /&gt; tags to insert before the link:<!-- <br /><small>(default: 2)</small> --></th>
+        <th scope="row"><?php _e('Number of &lt;br /&gt; tags to insert before the link','ftAddlink'); ?>:<!-- <br /><small>(default: 2)</small> --></th>
         <td><input type="text" name="<?php echo $this->option_name?>[breaks]" value="<?php echo $breaks; ?>" /></td>
       </tr>
       <tr valign="top">
-        <th scope="row">Open link in new window/tab:</th>
+        <th scope="row"><?php  _e('Open link in new window/tab','ftAddlink'); ?>:</th>
         <td><input type="checkbox"  name="<?php echo $this->option_name?>[target]" <?php checked($options['target']); ?>  /></td>
       </tr>
       <tr valign="top">
-        <th scope="row">Link to site instead of page/post:</th>
+        <th scope="row"><?php  _e('Link to site instead of page/post','ftAddlink'); ?>:</th>
         <td><input type="checkbox" onchange="setSitetileaslink(this)" name="<?php echo $this->option_name?>[addlinktosite]" <?php checked($options['addlinktosite']); ?>  /></td>
       </tr>
        <tr valign="top">
-        <th scope="row">Use page/post title as link text:</th>
+        <th scope="row"><?php  _e('Use page/post title as link text','ftAddlink'); ?>:</th>
         <td><input type="checkbox" name="<?php echo $this->option_name?>[usetitle]" <?php checked($options['usetitle']); ?>  /></td>
       </tr>
       <tr valign="top" <?php if( $options['addlinktosite']) echo 'style="opacity:0.5;"'; ?>>
-        <th scope="row">Add site title as a separate link:</th>
+        <th scope="row"><?php  _e('Add site title as a separate link','ftAddlink'); ?>:</th>
         <td><input type="checkbox" onchange="setCheck(this)" <?php disabled( $options['addlinktosite']) ?> name="<?php echo $this->option_name?>[usesitenameaslink]" <?php checked($options['usesitenameaslink']); ?>  /></td>
       </tr>
       
        <tr valign="top" <?php if( $options['usesitenameaslink']) echo 'style="opacity:0.5;"'; ?>>
-        <th scope="row">Add site title to link text:</th>
+        <th scope="row"><?php  _e('Add site title to link text','ftAddlink'); ?>:</th>
         <td><input type="checkbox" name="<?php echo $this->option_name?>[addsitename]" <?php disabled( $options['usesitenameaslink']) ?> <?php checked($options['addsitename']); ?>  /></td>
       </tr>
       
       <tr valign="top">
-        <th scope="row">Replace copied text with:</th>
+        <th scope="row"><?php  _e('Replace copied text with','ftAddlink'); ?>:</th>
         <td><textarea name="<?php echo $this->option_name?>[replaced_text]" rows="5" cols="50"><?php echo $this->options['replaced_text']?></textarea>
         </td>
       </tr>
       
       <tr valign="top">
-        <th scope="row">OR<br /><br /><span style="color: Red;">Don't let user copy my content:</span><!--Enable clear copied text(If yes, nothing will be copied)--></th>
+        <th scope="row"><?php  _e('OR','ftAddlink'); ?><br /><br /><span style="color: Red;"><?php  _e('Don\'t let user copy my content','ftAddlink'); ?>:</span><!--Enable clear copied text(If yes, nothing will be copied)--></th>
         <td><br /><br /><input type="checkbox" name="<?php echo $this->option_name?>[cleartext]" <?php checked($options['cleartext']); ?>  /></td>
       </tr>      
     </table>
     <p class="submit">
-      <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+      <input type="submit" class="button-primary" value="<?php  _e('Save Changes','ftAddlink') ?>" />
     </p>
   </form>
   <script>

@@ -1,0 +1,83 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Add Link to Copied Text\n"
+"POT-Creation-Date: 2014-06-13 16:24+0530\n"
+"PO-Revision-Date: 2014-06-13 16:37+0530\n"
+"Last-Translator: Fellow Tuts <support@fellowtuts.com>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.5\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: settings.php:44 settings.php:151
+msgid "Continue reading at"
+msgstr "Seguir leyendo en"
+
+#: settings.php:102
+msgid "Add link Settings"
+msgstr "Añadir enlace ajustes"
+
+#: settings.php:102
+msgid "Add Link"
+msgstr "Agregar Enlace"
+
+#: settings.php:136
+msgid "Please enter a valid integer number"
+msgstr "Por favor, introduzca un número entero válido"
+
+#: settings.php:158
+msgid "Add Link On Copy Options"
+msgstr "Añadir enlace En las opciones de copia"
+
+#: settings.php:163
+msgid "Label to append"
+msgstr "Etiqueta para anexar"
+
+#: settings.php:168
+msgid "Number of &lt;br /&gt; tags to insert before the link"
+msgstr "Número de &lt;br /&gt; etiquetas para insertar antes del enlace"
+
+#: settings.php:172
+msgid "Open link in new window/tab"
+msgstr "Abrir enlace en una nueva ventana / pestaña"
+
+#: settings.php:176
+msgid "Link to site instead of page/post"
+msgstr "Enlace a la página en lugar de la página / post"
+
+#: settings.php:180
+msgid "Use page/post title as link text"
+msgstr "Utilice la página / título de la entrada como texto del enlace"
+
+#: settings.php:184
+msgid "Add site title as a separate link"
+msgstr "Añadir título del sitio como un enlace separado"
+
+#: settings.php:189
+msgid "Add site title to link text"
+msgstr "Añadir título del sitio de enlaces de texto"
+
+#: settings.php:194
+msgid "Replace copied text with"
+msgstr "Reemplazar texto copiado con"
+
+#: settings.php:200
+msgid "OR"
+msgstr "Oregón"
+
+#: settings.php:200
+msgid "Don't let user copy my content"
+msgstr "No permita que el usuario copie el contenido de mi"
+
+#: settings.php:205
+msgid "Save Changes"
+msgstr "Guardar cambios"
