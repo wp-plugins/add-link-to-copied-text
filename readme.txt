@@ -3,7 +3,7 @@ Contributors: amitaits, kka284556
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=amitsonkhiya%40hotmail%2ecom&lc=US&item_name=Fellow%20Tuts%20%2d%20Plugin%20Development%20Support&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: copied, copy, copyright, content, website, link, add link, append link, add text to copy and paste,copy & paste, text, back link, link back, plugin, wordpress
 Requires at least: 3.4
-Tested up to: 4.1
+Tested up to: 4.2
 Stable tag: 1.3
 License: GPLv2 or later
 
